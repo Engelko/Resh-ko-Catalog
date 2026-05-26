@@ -35,10 +35,13 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <div className="group bg-white border border-slate-200 rounded-[2rem] overflow-hidden hover:border-blue-600 transition-all duration-300">
       <Link href={`/product/${product.slug}`}>
-        <div className="relative aspect-square bg-slate-50 flex items-center justify-center p-8">
-           <div className="w-full h-full border border-slate-100 rounded-2xl flex items-center justify-center bg-white text-[10px] text-slate-300 italic text-center p-4">
-            {product.title}
-          </div>
+        <div className="relative aspect-square bg-slate-50 flex items-center justify-center overflow-hidden">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={product.imageUrl}
+            alt={product.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          />
         </div>
       </Link>
 
@@ -47,7 +50,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           {product.category.name}
         </div>
         <Link href={`/product/${product.slug}`}>
-          <h3 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-1 mb-4 tracking-tight">
+          <h3 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2 min-h-[3.5rem] mb-4 tracking-tight leading-tight">
             {product.title}
           </h3>
         </Link>

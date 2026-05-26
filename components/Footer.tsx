@@ -15,16 +15,16 @@ export default function Footer() {
             <h3 className="text-sm font-bold text-slate-900 mb-4 uppercase tracking-wider">Магазин</h3>
             <ul className="space-y-2 text-sm text-slate-500">
               <li><Link href="/" className="hover:text-blue-600">Каталог</Link></li>
-              <li><a href="#" className="hover:text-blue-600">Доставка</a></li>
-              <li><a href="#" className="hover:text-blue-600">Оплата</a></li>
+              <li><Link href="/delivery" className="hover:text-blue-600">Доставка</Link></li>
+              <li><Link href="/payment" className="hover:text-blue-600">Оплата</Link></li>
             </ul>
           </div>
           <div>
             <h3 className="text-sm font-bold text-slate-900 mb-4 uppercase tracking-wider">Компания</h3>
             <ul className="space-y-2 text-sm text-slate-500">
-              <li><a href="#" className="hover:text-blue-600">О нас</a></li>
-              <li><a href="#" className="hover:text-blue-600">Контакты</a></li>
-              <li><a href="#" className="hover:text-blue-600">Политика</a></li>
+              <li><Link href="/about" className="hover:text-blue-600">О нас</Link></li>
+              <li><Link href="/contact" className="hover:text-blue-600">Контакты</Link></li>
+              <li><Link href="/privacy" className="hover:text-blue-600">Политика</Link></li>
             </ul>
           </div>
         </div>

@@ -1,37 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { loginAction } from "@/app/actions/auth";
 
 export default function AdminLoginPage() {
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
 
-    try {
-      const response = await fetch("/api/admin/login", {
-        method: "POST",
-        body: JSON.stringify({ password }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+    const formData = new FormData(e.currentTarget);
+    const result = await loginAction(formData);
 
-      if (response.ok) {
-        router.push("/admin");
-        router.refresh();
-      } else {
-        setError("Неверный пароль доступа");
-        setIsLoading(false);
-      }
-    } catch {
-      setError("Произошла ошибка при входе");
+    if (result?.error) {
+      setError(result.error);
       setIsLoading(false);
     }
   };
@@ -44,13 +29,12 @@ export default function AdminLoginPage() {
           <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Панель управления</p>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-8">
+        <form onSubmit={handleSubmit} className="space-y-8">
           <div>
             <label className="block text-[10px] font-black text-slate-400 mb-3 uppercase tracking-[0.2em]">Введите пароль</label>
             <input
+              name="password"
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
               className="w-full px-6 py-4 rounded-2xl border-2 border-slate-50 focus:outline-none focus:border-blue-600 transition-all font-bold text-center text-xl tracking-[0.3em]"
               placeholder="••••••••"
               required
