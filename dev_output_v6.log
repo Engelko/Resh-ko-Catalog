@@ -1,0 +1,13 @@
+
+> next-temp@0.1.0 dev
+> next dev --turbopack
+
+ ⚠ Port 3000 is in use by an unknown process, using available port 3006 instead.
+   ▲ Next.js 15.5.18 (Turbopack)
+   - Local:        http://localhost:3006
+   - Network:      http://192.168.0.2:3006
+   - Environments: .env
+
+ ✓ Starting...
+ ✓ Compiled middleware in 343ms
+ ✓ Ready in 1983ms

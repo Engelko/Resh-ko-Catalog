@@ -7,9 +7,9 @@ export default function LogoutButton() {
   return (
     <button
       onClick={() => logoutAction()}
-      className="inline-flex items-center gap-2 bg-red-50 text-red-600 hover:bg-red-600 hover:text-white px-6 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all"
+      className="inline-flex items-center gap-2 bg-slate-900 text-white hover:bg-red-600 px-6 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all shadow-lg shadow-slate-200"
     >
-      <LogOut className="w-4 h-4" />
+      <LogOut className="w-3.5 h-3.5" />
       ВЫЙТИ
     </button>
   );

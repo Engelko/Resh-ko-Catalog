@@ -1,0 +1,25 @@
+
+> next-temp@0.1.0 dev
+> next dev --turbopack -p 3005
+
+   ▲ Next.js 15.5.18 (Turbopack)
+   - Local:        http://localhost:3005
+   - Network:      http://192.168.0.2:3005
+   - Environments: .env
+
+ ✓ Starting...
+ ✓ Compiled middleware in 345ms
+ ✓ Ready in 2s
+ ○ Compiling /about ...
+ ✓ Compiled /about in 6.4s
+ GET /about 200 in 7962ms
+ ○ Compiling /contact ...
+ ✓ Compiled /contact in 568ms
+ GET /contact 200 in 951ms
+ ○ Compiling / ...
+ ✓ Compiled / in 558ms
+ GET / 200 in 961ms
+ GET / 200 in 336ms
+ ○ Compiling /admin/login ...
+ ✓ Compiled /admin/login in 562ms
+ GET /admin/login 200 in 782ms
