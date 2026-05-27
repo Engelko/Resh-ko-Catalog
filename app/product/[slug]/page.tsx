@@ -29,10 +29,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
         {/* Product Image */}
-        <div className="aspect-square bg-slate-50 rounded-[3rem] flex items-center justify-center p-12 border border-slate-100">
-           <div className="w-full h-full border border-slate-200 rounded-[2rem] flex items-center justify-center bg-white text-xs text-slate-300 italic text-center p-8 uppercase tracking-widest font-bold">
-            {product.title}
-          </div>
+        <div className="aspect-square bg-slate-50 rounded-[3rem] overflow-hidden border border-slate-100">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={product.imageUrl}
+            alt={product.title}
+            className="w-full h-full object-cover"
+          />
         </div>
 
         {/* Product Details */}
