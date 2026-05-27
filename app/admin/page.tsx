@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 import { Package, ShoppingCart } from "lucide-react";
+import LogoutButton from "@/components/admin/LogoutButton";
 
 export default async function AdminDashboardPage() {
   const productsCount = await prisma.product.count();
@@ -12,15 +13,18 @@ export default async function AdminDashboardPage() {
 
   return (
     <div className="container py-12">
-      <div className="flex items-center justify-between mb-12">
+      <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
         <h1 className="text-4xl font-black tracking-tighter uppercase">Панель</h1>
-        <div className="flex gap-3">
+        <div className="flex flex-wrap items-center gap-3">
            <Link href="/admin/products" className="bg-white border-2 border-slate-100 hover:border-slate-900 px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all">
             Товары
            </Link>
            <Link href="/admin/orders" className="bg-slate-900 text-white hover:bg-blue-600 px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all shadow-lg shadow-slate-200">
             Заказы
            </Link>
+           <div className="md:ml-4">
+             <LogoutButton />
+           </div>
         </div>
       </div>
 

@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import Link from "next/link";
 import { Plus, Edit, ArrowLeft } from "lucide-react";
 import DeleteProductButton from "@/components/admin/DeleteProductButton";
+import LogoutButton from "@/components/admin/LogoutButton";
 
 export default async function AdminProductsPage() {
   const products = await prisma.product.findMany({
@@ -16,12 +17,15 @@ export default async function AdminProductsPage() {
         В панель
       </Link>
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-12 gap-6">
+      <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
         <h1 className="text-4xl font-black tracking-tighter uppercase">Товары</h1>
-        <Link href="/admin/products/new" className="bg-slate-900 text-white hover:bg-blue-600 px-8 py-4 rounded-2xl text-xs font-black uppercase tracking-widest transition-all shadow-lg flex items-center justify-center gap-2">
-          <Plus className="w-5 h-5" />
-          Добавить товар
-        </Link>
+        <div className="flex items-center gap-4">
+          <Link href="/admin/products/new" className="bg-slate-900 text-white hover:bg-blue-600 px-8 py-4 rounded-2xl text-xs font-black uppercase tracking-widest transition-all shadow-lg flex items-center justify-center gap-2">
+            <Plus className="w-5 h-5" />
+            Добавить товар
+          </Link>
+          <LogoutButton />
+        </div>
       </div>
 
       <div className="bg-white border-2 border-slate-50 rounded-[2.5rem] overflow-hidden shadow-sm">
