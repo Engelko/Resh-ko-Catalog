@@ -11,7 +11,7 @@ export async function loginAction(formData: FormData) {
     const cookieStore = await cookies();
     cookieStore.set("admin_auth", "true", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: false, // Disabled for local network / HTTP access
       maxAge: 60 * 60 * 24, // 1 day
       path: "/",
       sameSite: "lax",
