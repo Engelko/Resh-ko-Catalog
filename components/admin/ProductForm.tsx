@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createProduct, updateProduct } from "@/app/actions/product";
-import { Save } from "lucide-react";
+import { Save, AlertCircle } from "lucide-react";
 import { Product } from "@prisma/client";
 
 interface ProductFormProps {
@@ -13,15 +13,15 @@ interface ProductFormProps {
 
 export default function ProductForm({ categories, initialData }: ProductFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
   const [slug, setSlug] = useState(initialData?.slug || "");
   const router = useRouter();
 
-  // Transliteration helper
   const transliterate = (text: string) => {
-    const ru = {
+    const ru: Record<string, string> = {
       'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'e', 'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'ch', 'ш': 'sh', 'щ': 'shch', 'ы': 'y', 'э': 'e', 'ю': 'yu', 'я': 'ya'
     };
-    return text.split('').map(char => ru[char.toLowerCase() as keyof typeof ru] || char).join('').replace(/[^a-z0-9]/gi, '-').toLowerCase().replace(/-+/g, '-').replace(/^-|-$/g, '');
+    return text.split('').map(char => ru[char.toLowerCase()] || char).join('').replace(/[^a-z0-9]/gi, '-').toLowerCase().replace(/-+/g, '-').replace(/^-|-$/g, '');
   };
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,27 +33,40 @@ export default function ProductForm({ categories, initialData }: ProductFormProp
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError("");
 
-    const formData = new FormData(e.currentTarget);
+    try {
+      const formData = new FormData(e.currentTarget);
 
-    let result;
-    if (initialData) {
-      result = await updateProduct(initialData.id, formData);
-    } else {
-      result = await createProduct(formData);
-    }
+      let result;
+      if (initialData) {
+        result = await updateProduct(initialData.id, formData);
+      } else {
+        result = await createProduct(formData);
+      }
 
-    if (result.success) {
-      router.push("/admin/products");
-      router.refresh();
-    } else {
-      alert("Ошибка при сохранении");
+      if (result.success) {
+        router.push("/admin/products");
+        router.refresh();
+      } else {
+        setError(result.error || "Произошла неизвестная ошибка");
+        setIsSubmitting(false);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Ошибка соединения с сервером");
       setIsSubmitting(false);
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="bg-white border-2 border-slate-50 rounded-[2.5rem] p-10 shadow-sm space-y-8">
+      {error && (
+        <div className="p-4 bg-red-50 text-red-600 rounded-2xl flex items-center gap-3 border border-red-100 font-bold text-sm">
+          <AlertCircle className="w-5 h-5 shrink-0" />
+          {error}
+        </div>
+      )}
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="md:col-span-2">
           <label className="block text-[10px] font-black text-slate-400 mb-3 uppercase tracking-[0.2em]">Название товара</label>
